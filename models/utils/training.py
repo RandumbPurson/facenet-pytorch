@@ -2,6 +2,10 @@ import torch
 import numpy as np
 import time
 
+import logging
+
+logging.basicConfig(filename="/home/emmaf/School/Courses/CSE-402/Project/logs/utils.log")
+
 
 class Logger(object):
 
@@ -93,6 +97,7 @@ def pass_epoch(
     metrics = {}
 
     for i_batch, (x, y) in enumerate(loader):
+        logging.debug(f"{x.shape=}, {y.shape=}")
         x = x.to(device)
         y = y.to(device)
         y_pred = model(x)
