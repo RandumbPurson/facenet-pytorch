@@ -4,6 +4,7 @@ import time
 
 import logging
 
+logging = logger.getLogger(__name__)
 logging.basicConfig(filename="/home/emmaf/School/Courses/CSE-402/Project/logs/utils.log")
 
 
