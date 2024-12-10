@@ -2,12 +2,6 @@ import torch
 import numpy as np
 import time
 
-import logging
-
-logging = logger.getLogger(__name__)
-logging.basicConfig(filename="/home/emmaf/School/Courses/CSE-402/Project/logs/utils.log")
-
-
 class Logger(object):
 
     def __init__(self, mode, length, calculate_mean=False):
@@ -93,12 +87,10 @@ def pass_epoch(
     """
     
     mode = 'Train' if model.training else 'Valid'
-    logger = Logger(mode, length=len(loader), calculate_mean=show_running)
     loss = 0
     metrics = {}
 
     for i_batch, (x, y) in enumerate(loader):
-        logging.debug(f"{x.shape=}, {y.shape=}")
         x = x.to(device)
         y = y.to(device)
         y_pred = model(x)
@@ -123,10 +115,6 @@ def pass_epoch(
         
         loss_batch = loss_batch.detach().cpu()
         loss += loss_batch
-        if show_running:
-            logger(loss, metrics, i_batch)
-        else:
-            logger(loss_batch, metrics_batch, i_batch)
     
     if model.training and scheduler is not None:
         scheduler.step()
